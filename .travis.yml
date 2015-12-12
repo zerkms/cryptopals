@@ -1,0 +1,11 @@
+sudo: required
+dist: trusty
+
+language: cpp
+compiler:
+    - gcc
+os:
+    - linux
+
+before_script: ./.ci/build.sh
+script: ./.ci/test.sh
