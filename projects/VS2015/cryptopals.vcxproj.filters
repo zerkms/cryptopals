@@ -10,9 +10,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{af00c3a2-e908-4599-aa07-19431a1ad68f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="tests">
-      <UniqueIdentifier>{69b8c3e7-0666-44de-a416-650a835a31a9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\deps\catch-1.2.1\catch.hpp">
@@ -33,6 +30,9 @@
     <ClInclude Include="..\..\src\utils.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="export.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\analysis.cpp">
@@ -49,15 +49,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\utils.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\set_1.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\tests\test_set_1.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\tests\test_main.cpp">
-      <Filter>tests</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

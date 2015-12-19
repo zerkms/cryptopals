@@ -1,27 +1,31 @@
 #include "encoding.hpp"
 
-static const std::string BASE64_MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                                      "abcdefghijklmnopqrstuvwxyz"
-                                      "0123456789+/";
+namespace {
 
-static char first(uint8_t (&octets)[3])
-{
-    return BASE64_MAP[octets[0] >> 2];
-}
+    const std::string BASE64_MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz"
+        "0123456789+/";
 
-static char second(uint8_t (&octets)[3])
-{
-    return BASE64_MAP[((octets[0] & 0x3) << 4) + (octets[1] >> 4)];
-}
+    char first(uint8_t(&octets)[3])
+    {
+        return BASE64_MAP[octets[0] >> 2];
+    }
 
-static char third(uint8_t (&octets)[3])
-{
-    return BASE64_MAP[((octets[1] & 0xf) << 2) + (octets[2] >> 6)];
-}
+    char second(uint8_t(&octets)[3])
+    {
+        return BASE64_MAP[((octets[0] & 0x3) << 4) + (octets[1] >> 4)];
+    }
 
-static char fourth(uint8_t (&octets)[3])
-{
-    return BASE64_MAP[octets[2] & 0x3f];
+    char third(uint8_t(&octets)[3])
+    {
+        return BASE64_MAP[((octets[1] & 0xf) << 2) + (octets[2] >> 6)];
+    }
+
+    char fourth(uint8_t(&octets)[3])
+    {
+        return BASE64_MAP[octets[2] & 0x3f];
+    }
+
 }
 
 std::string base64_encode(const std::vector<uint8_t>& input)

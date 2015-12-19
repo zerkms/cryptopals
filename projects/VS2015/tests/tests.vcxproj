@@ -19,30 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\analysis.cpp" />
-    <ClCompile Include="..\..\src\conversions.cpp" />
-    <ClCompile Include="..\..\src\encoding.cpp" />
-    <ClCompile Include="..\..\src\encryption.cpp" />
-    <ClCompile Include="..\..\src\utils.cpp" />
+    <ClCompile Include="..\..\..\tests\test_main.cpp" />
+    <ClCompile Include="..\..\..\tests\test_set_1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\deps\catch-1.2.1\catch.hpp" />
-    <ClInclude Include="..\..\src\analysis.hpp" />
-    <ClInclude Include="..\..\src\conversions.hpp" />
-    <ClInclude Include="..\..\src\encoding.hpp" />
-    <ClInclude Include="..\..\src\encryption.hpp" />
-    <ClInclude Include="..\..\src\utils.hpp" />
-    <ClInclude Include="export.hpp" />
+    <ProjectReference Include="..\cryptopals.vcxproj">
+      <Project>{4013fb1a-4b3b-4692-bd7f-7fcfd86c0701}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4013FB1A-4B3B-4692-BD7F-7FCFD86C0701}</ProjectGuid>
+    <ProjectGuid>{356469AE-9F6B-438B-A92A-935BDF202267}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>cryptopals</RootNamespace>
+    <RootNamespace>tests</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -104,7 +97,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\deps\catch-1.2.1;$(ProjectDir)\..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,13 +126,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\deps\catch-1.2.1;$(ProjectDir)\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,9 +146,9 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
