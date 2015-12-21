@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\tests\test_main.cpp" />
     <ClCompile Include="..\..\..\tests\test_set_1.cpp" />
+    <ClCompile Include="..\..\..\tests\unit\analysis.cpp" />
+    <ClCompile Include="..\..\..\tests\unit\encoding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cryptopals.vcxproj">

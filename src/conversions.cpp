@@ -70,3 +70,27 @@ std::string bytes_to_string(const std::vector<uint8_t>& input)
 {
     return std::string(input.begin(), input.end());
 }
+
+uint8_t base64_char_to_value(const char c)
+{
+    if ('A' <= c && c <= 'Z') {
+        return c - 'A';
+    }
+
+    if ('a' <= c && c <= 'z') {
+        return c - 'a' + 26;
+    }
+
+    if ('0' <= c && c <= '9') {
+        return c - '0' + 52;
+    }
+
+    switch (c) {
+    case '+':
+        return 62; break;
+    case '/':
+        return 63; break;
+    }
+
+    return 64;
+}

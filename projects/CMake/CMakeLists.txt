@@ -14,7 +14,9 @@ set(cryptopals_SRC ../src/conversions.cpp
                    ../src/analysis.cpp)
                    
 set(cryptopals_TEST ../tests/test_main.cpp
-                    ../tests/test_set_1.cpp)
+                    ../tests/test_set_1.cpp
+                    ../tests/unit/analysis.cpp
+                    ../tests/unit/encoding.cpp)
 
 add_library(cryptopals SHARED ${cryptopals_SRC})
 

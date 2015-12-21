@@ -31,7 +31,7 @@ TEST_CASE("S1C3", "[S1]") {
     std::string msg{ "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736" };
     std::string expected{ "Cooking MC's like a pound of bacon" };
 
-    auto actual = single_byte_xor_cipher(msg);
+    auto actual = single_byte_xor_cipher(hex_to_bytes(msg));
 
     REQUIRE(std::get<1>(actual) == expected);
 }
@@ -62,4 +62,15 @@ TEST_CASE("S1C5", "[S1]") {
     auto actual = bytes_to_hex(repeated_xor(string_to_bytes(key), string_to_bytes(msg)));
 
     REQUIRE(actual == expected);
+}
+
+TEST_CASE("S1C6", "[S1]") {
+    std::ifstream file{ "6.txt" };
+    std::string encrypted;
+
+    for (std::string line; std::getline(file, line);) {
+        encrypted.append(line);
+    }
+
+    //auto r = repeated_xor_break(base64_decode(encrypted));
 }

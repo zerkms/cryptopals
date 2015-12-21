@@ -1,5 +1,22 @@
 #include "analysis.hpp"
 
+namespace {
+    char bits_set_count(uint8_t c)
+    {
+        char count = 0;
+
+        while (c > 0) {
+            if ((c & 1) == 1) {
+                ++count;
+            }
+
+            c >>= 1;
+        }
+
+        return count;
+    }
+}
+
 long scorer(const std::string& str)
 {
     auto score = 0L;
@@ -60,4 +77,16 @@ long scorer(const std::string& str)
     }
 
     return score;
+}
+
+long hamming_distance(const std::vector<uint8_t>& a, const std::vector<uint8_t>& b)
+{
+    int distance = 0L;
+
+    for (size_t i = 0; i < a.size(); ++i) {
+        unsigned char x = a[i] ^ b[i];
+        distance += bits_set_count(x);
+    }
+
+    return distance;
 }

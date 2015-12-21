@@ -1,4 +1,7 @@
+#include <climits>
+
 #include "encryption.hpp"
+#include "encoding.hpp"
 #include "conversions.hpp"
 #include "analysis.hpp"
 #include "utils.hpp"
@@ -19,15 +22,34 @@ std::vector<uint8_t> repeated_xor(const std::vector<uint8_t>& key, const std::ve
     return bin;
 }
 
-std::tuple<long, std::string> single_byte_xor_cipher(const std::string& msg)
+std::vector<uint8_t> repeated_xor_break(const std::vector<uint8_t>& encrypted)
+{
+    decltype(repeated_xor_break(encrypted)) result;
+
+    std::tuple<long, char> key_length{ LONG_MAX, 0 };
+
+    for (char i = 1; i < 41; ++i) {
+        std::vector<uint8_t> first(encrypted.begin(), encrypted.begin() + i);
+        std::vector<uint8_t> second(encrypted.begin() + i, encrypted.begin() + i * 2);
+        std::vector<uint8_t> third(encrypted.begin() + i * 2, encrypted.begin() + i * 3);
+
+        auto distance = (hamming_distance(first, second) + hamming_distance(second, third)) / 2;
+        if (distance < std::get<0>(key_length)) {
+            key_length = std::make_tuple(distance, i);
+        }
+    }
+
+    return result;
+}
+
+std::tuple<long, std::string> single_byte_xor_cipher(const std::vector<uint8_t>& msg)
 {
     std::tuple<long, std::string> answer{ 0, "" };
-    auto bytes_msg = hex_to_bytes(msg);
 
     for (auto i = 0; i <= 0xff; ++i) {
         std::vector<uint8_t> key{ static_cast<uint8_t>(i) };
 
-        auto decoded = bytes_to_string(repeated_xor(key, bytes_msg));
+        auto decoded = bytes_to_string(repeated_xor(key, msg));
 
         auto score = scorer(decoded);
 
@@ -44,7 +66,7 @@ std::tuple<long, std::string, std::string> single_byte_xor_cipher_from_list(cons
     std::tuple<long, std::string, std::string> result{ 0, "", "" };
 
     for (const auto& v : list) {
-        auto candidate = single_byte_xor_cipher(v);
+        auto candidate = single_byte_xor_cipher(hex_to_bytes(v));
 
         if (std::get<0>(candidate) > std::get<0>(result)) {
             result = std::make_tuple(std::get<0>(candidate), std::get<1>(candidate), v);
