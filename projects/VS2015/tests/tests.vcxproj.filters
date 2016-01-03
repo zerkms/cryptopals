@@ -4,6 +4,9 @@
     <Filter Include="tests">
       <UniqueIdentifier>{d75d15fa-67b9-402d-a382-5fec4d2cc3b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\unit">
+      <UniqueIdentifier>{b905ef63-1cdb-434d-918a-af68b140d371}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\tests\test_main.cpp">
@@ -11,6 +14,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\tests\test_set_1.cpp">
       <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\unit\analysis.cpp">
+      <Filter>tests\unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\unit\encoding.cpp">
+      <Filter>tests\unit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

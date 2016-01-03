@@ -3,8 +3,12 @@ cmake_policy(SET CMP0015 NEW)
 project (cryptopals)
 set(CMAKE_BUILD_TYPE Release)
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9)
+        SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1y")
+    else()
+        message(FATAL_ERROR "@FIXME")
+    endif()
 endif()
 
 set(cryptopals_SRC ../src/conversions.cpp
@@ -14,7 +18,9 @@ set(cryptopals_SRC ../src/conversions.cpp
                    ../src/analysis.cpp)
                    
 set(cryptopals_TEST ../tests/test_main.cpp
-                    ../tests/test_set_1.cpp)
+                    ../tests/test_set_1.cpp
+                    ../tests/unit/analysis.cpp
+                    ../tests/unit/encoding.cpp)
 
 add_library(cryptopals SHARED ${cryptopals_SRC})
 

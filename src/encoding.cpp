@@ -1,4 +1,5 @@
 #include "encoding.hpp"
+#include "conversions.hpp"
 
 namespace {
 
@@ -31,7 +32,7 @@ namespace {
 std::string base64_encode(const std::vector<uint8_t>& input)
 {
     std::string result;
-    result.reserve(input.size() / 3 * 4);
+    result.reserve(input.size() / 3 * 4 + 4);
 
     uint8_t octets[3];
 
@@ -64,6 +65,40 @@ std::string base64_encode(const std::vector<uint8_t>& input)
 
         std::string padding(3 - remainder, '=');
         result.append(padding);
+    }
+
+    return result;
+}
+
+std::vector<uint8_t> base64_decode(const std::string& msg)
+{
+    decltype(base64_decode("")) result;
+    result.reserve(msg.length() / 4 * 3 + 3);
+
+    uint8_t chars[4];
+
+    for (size_t i = 0; i < msg.size(); i += 4) {
+        chars[0] = base64_char_to_value(msg[i]);
+        chars[1] = base64_char_to_value(msg[i + 1]);
+        chars[2] = base64_char_to_value(msg[i + 2]);
+        chars[3] = base64_char_to_value(msg[i + 3]);
+
+        unsigned char octet = (chars[0] << 2) + ((chars[1] & 0x30) >> 4);
+        result.push_back(octet);
+
+        if (msg[i + 2] == '=') {
+            break;
+        }
+
+        octet = ((chars[1] & 0xf) << 4) + ((chars[2] & 0x3c) >> 2);
+        result.push_back(octet);
+
+        if (msg[i + 3] == '=') {
+            break;
+        }
+
+        octet = ((chars[2] & 0x3) << 6) + (chars[3] & 0x3f);
+        result.push_back(octet);
     }
 
     return result;
