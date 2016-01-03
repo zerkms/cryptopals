@@ -74,6 +74,12 @@ long scorer(const std::string& str)
         case 'u':
             score += 1; break;
         }
+
+        if (c < 32) {
+            score -= 15;
+        } else if(c > 127) {
+            score -= 15;
+        }
     }
 
     return score;
@@ -89,4 +95,9 @@ long hamming_distance(const std::vector<uint8_t>& a, const std::vector<uint8_t>&
     }
 
     return distance;
+}
+
+double weighted_hamming_distance(const std::vector<uint8_t>& a, const std::vector<uint8_t>& b)
+{
+    return hamming_distance(a, b) / static_cast<double>(a.size());
 }
